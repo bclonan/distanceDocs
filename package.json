@@ -1,0 +1,25 @@
+{
+  "name": "distancedocs",
+  "version": "1.0.0",
+  "description": "Documentation for distance calculator",
+  "main": ".vuepress/dist",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/possibly1/distanceDocs.git"
+  },
+  "author": "bmcarc",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/possibly1/distanceDocs/issues"
+  },
+  "homepage": "https://github.com/possibly1/distanceDocs#readme",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "vuepress": "^0.14.4"
+  }
+}
