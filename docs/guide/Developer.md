@@ -4,31 +4,23 @@ title: Developer
 
 ## Overview
 
-...
+The Developer sidemenu is a additional widget embedded into the front end application to showcase custom web components.
 
 ## Table of Contents
 
 [[toc]]
 
-## App Structure
+## Structure
 
-Bellow is the current structure of the Distance Calculator Package.
+Bellow is the current structure of the Developer mode web component
 
 ```
-bootstrap/
+intime/
 ├── css/
-│   ├── bootstrap.css
-│   ├── bootstrap.min.css
-│   ├── bootstrap-theme.css
-│   └── bootstrap-theme.min.css
-├── js/
-│   ├── bootstrap.js
-│   └── bootstrap.min.js
-└── fonts/
-    ├── glyphicons-halflings-regular.eot
-    ├── glyphicons-halflings-regular.svg
-    ├── glyphicons-halflings-regular.ttf
-    └── glyphicons-halflings-regular.woff
+│   ├── style.css
+│   └── debug.css
+└── js/
+    └── script.js
 ```
 
 ## How to use

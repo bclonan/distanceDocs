@@ -16,19 +16,15 @@ Bellow is the current structure of the Distance Calculator Package.
 
 ```
 bootstrap/
+intime/
 ├── css/
-│   ├── bootstrap.css
-│   ├── bootstrap.min.css
-│   ├── bootstrap-theme.css
-│   └── bootstrap-theme.min.css
+│   ├── style.css
+│   └── debug.css
 ├── js/
-│   ├── bootstrap.js
-│   └── bootstrap.min.js
-└── fonts/
-    ├── glyphicons-halflings-regular.eot
-    ├── glyphicons-halflings-regular.svg
-    ├── glyphicons-halflings-regular.ttf
-    └── glyphicons-halflings-regular.woff
+│    └── script.js
+└── /
+    ├── index.html
+    └── debug.html
 ```
 
 ## How to use
