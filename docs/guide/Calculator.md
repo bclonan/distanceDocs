@@ -4,7 +4,7 @@ title: The Calculator
 
 ## Overview
 
-...
+The calculator package is the main project package, it is comprised of html, js, css, and its core functionality relies on no outside libraries. In addition to its core functionality the calculator application has vue developer menu web component embedded.
 
 ## Table of Contents
 
@@ -29,12 +29,12 @@ public/
 └── styleDebug.html
 ```
 
-| file   | Contents                                |
-| -------- | ------------------------------------- |
-| index.html | holds main application |
+| file            | Contents                                             |
+| --------------- | ---------------------------------------------------- |
+| index.html      | holds main application                               |
 | styleDebug.html | holds main application with css debug mode activated |
-| main.js | holds main application's javascript|
-| dev-menu.js | holds compiled web component for hidden dev menu |
+| main.js         | holds main application's javascript                  |
+| dev-menu.js     | holds compiled web component for hidden dev menu     |
 
 ## How to use
 
@@ -42,13 +42,12 @@ public/
 
 **Directions**
 
-Open *index.html* file in your web browser.
+Open _index.html_ file in your web browser.
 
-Enter the first letters of your target **Departing airport** in the input box marked *from*, than choose from the available airports from the dropdown that appears. After that
-enter the first letters of your target **Destination airport** in the input box marked *to*, than choose from the available airports from the dropdown that appears.
+Enter the first letters of your target **Departing airport** in the input box marked _from_, than choose from the available airports from the dropdown that appears. After that
+enter the first letters of your target **Destination airport** in the input box marked _to_, than choose from the available airports from the dropdown that appears.
 
 If succesfull the distance between the two airports will appear.
-
 
 - [Repository](https://github.com/possibly1/xyzdocs)
 
@@ -56,7 +55,7 @@ If succesfull the distance between the two airports will appear.
 
 **Directions**
 
-Open *index.html* file in your web browser.
+Open _index.html_ file in your web browser.
 
 To activate the secret developer menu hidden in the frontend application type the following keys in order.
 
@@ -68,26 +67,26 @@ After that if succesfful the developer menu activation button will appear, click
 
 **Directions**
 
-Open *styleDebug.html* file in your web browser or select Style Debug view from the hidden developer menu.
+Open _styleDebug.html_ file in your web browser or select Style Debug view from the hidden developer menu.
 
 The style debug page features the page with clearly defined boarders to check for overlap.
 
 ## HTML Elements Overview
 
-The html located in *index.html* is what defines the structure for the frontend application. 
+The html located in _index.html_ is what defines the structure for the frontend application.
 
 ### Important Frontend Elements
 
-| Element   | TagName                              | Use                                |
-| -------- | ------------------------------------- | ------------------------------------- |
-| .hero | section |Houses all of the elments within the frontend application, and has a image background |
-| .hero-inner | div | Inner wrapper inside the main hero element, used to center interactive components horizontally and vertically |
-| #devHolder| div | Holds the hidden developer menu toggle button, shown only when one enters the secret konami code|
-| .form-inline .btn | form | Holds the form elements for the distance calculator, as well as results and feedback for form validation|
-|#feedBack| p |Used for form validation, shows message directing user in choosing correct form input|
-|#from_airport| input |Used to prompt user to enter a departing airport|
-|#to_airport| input |Used to prompt user to enter a destination airport|
-|#distance| p |Upon correct airport selections displays distance between two airports|
+| Element           | TagName | Use                                                                                                           |
+| ----------------- | ------- | ------------------------------------------------------------------------------------------------------------- |
+| .hero             | section | Houses all of the elments within the frontend application, and has a image background                         |
+| .hero-inner       | div     | Inner wrapper inside the main hero element, used to center interactive components horizontally and vertically |
+| #devHolder        | div     | Holds the hidden developer menu toggle button, shown only when one enters the secret konami code              |
+| .form-inline .btn | form    | Holds the form elements for the distance calculator, as well as results and feedback for form validation      |
+| #feedBack         | p       | Used for form validation, shows message directing user in choosing correct form input                         |
+| #from_airport     | input   | Used to prompt user to enter a departing airport                                                              |
+| #to_airport       | input   | Used to prompt user to enter a destination airport                                                            |
+| #distance         | p       | Upon correct airport selections displays distance between two airports                                        |
 
 ### Frontend Code Snippet
 
@@ -126,36 +125,35 @@ The html located in *index.html* is what defines the structure for the frontend 
 
 ## Javascript Overview
 
-The javascript located in *scripts/main.js* is what controls the inner workings of the frontend application. 
+The javascript located in _scripts/main.js_ is what controls the inner workings of the frontend application.
 
 ### Variables
 
-| Variable   | Use                                |
-| -------- | ------------------------------------- |
-| fakeFetchedData | Simulate web scraping of airport codes or information |
-| distanceTotal | Placeholder for distance message |
-|feedbackMessage| Placeholder for feedback message |
-|intentChecked | Simulate comparison of internal intent data vs fetched data from  |
-|currentFocus  | Currently Focused element from autocomplete values  |
-| inputArray  | Holds input values |
-| from | Used to validate departure form input |
-| to | Used to validate destination input  |
-|keySequence| Contains running list of keypresses made by user|
-|devMode| Contains series of keys to press for unlocking developer mode|
-|resetArray| Contains key to reset keySequence Array|
+| Variable        | Use                                                              |
+| --------------- | ---------------------------------------------------------------- |
+| fakeFetchedData | Simulate web scraping of airport codes or information            |
+| distanceTotal   | Placeholder for distance message                                 |
+| feedbackMessage | Placeholder for feedback message                                 |
+| intentChecked   | Simulate comparison of internal intent data vs fetched data from |
+| currentFocus    | Currently Focused element from autocomplete values               |
+| inputArray      | Holds input values                                               |
+| from            | Used to validate departure form input                            |
+| to              | Used to validate destination input                               |
+| keySequence     | Contains running list of keypresses made by user                 |
+| devMode         | Contains series of keys to press for unlocking developer mode    |
+| resetArray      | Contains key to reset keySequence Array                          |
 
 ### Main Frontend Functions
 
-| Function   | Arguments                              | Use                                |
-| -------- | ------------------------------------- | ------------------------------------- |
-| autocomplete | user input, autocomplete array  | handles autocompletion functionality |
-| validateForm | none | validates user form input|
-| travelListener| Departure airport code, Destination airport code | Calculates distance between airports and appends|
-| feedBack | Message to attach to input feedback | Inform user throughout process|
-| devToggle | Itself | Listens for correct key sequences|
+| Function       | Arguments                                        | Use                                              |
+| -------------- | ------------------------------------------------ | ------------------------------------------------ |
+| autocomplete   | user input, autocomplete array                   | handles autocompletion functionality             |
+| validateForm   | none                                             | validates user form input                        |
+| travelListener | Departure airport code, Destination airport code | Calculates distance between airports and appends |
+| feedBack       | Message to attach to input feedback              | Inform user throughout process                   |
+| devToggle      | Itself                                           | Listens for correct key sequences                |
 
 ### Isolated Code Snippets and tests
 
 ```js
-
 ```

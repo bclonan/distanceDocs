@@ -69,10 +69,6 @@ module.exports = {
       {
         text: 'Guide',
         link: '/guide/'
-      },
-      {
-        text: 'Community',
-        link: '/community/'
       }
     ],
     sidebar: {

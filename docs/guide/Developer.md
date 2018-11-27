@@ -4,7 +4,7 @@ title: Developer
 
 ## Overview
 
-...
+The developer package is a simple slideout menu created with vue js.
 
 ## Table of Contents
 
@@ -14,14 +14,13 @@ title: Developer
 
 - [Vue.js](https://vuejs.org/)
 
-
 ## How to use
 
 ### Developer Widget
 
 **Directions**
 
-Go to the project directory in your consol. 
+Go to the project directory in your consol.
 
 ```sh
 cd D:pathtprojectdirectory/timeWidget
@@ -43,6 +42,12 @@ Or Build
 
 ```sh
 npm run build
+```
+
+Package into web component
+
+```sh
+npm run singlewebcomponent
 ```
 
 Alternatively you can use vue cli 3
@@ -78,50 +83,99 @@ timeWidget/
 
 ### Important Files
 
-| file   | Contents                                |
-| -------- | ------------------------------------- |
-| favicon.ico | |
-| index.html |  |
-| logo.png ||
-| DeveloperControl.vue | |
-| App.vue | |
-| main.js | |
-| .browserslistrc | |
-| .editorconfig | |
-| .eslintrc.js | |
-| .gitignore | |
-| babel.config.js | |
-| package.json | |
-| package-lock.json | |
-| postcss.config.js | |
-| README.md | |
+| file                 | Contents                                               |
+| -------------------- | ------------------------------------------------------ |
+| DeveloperControl.vue | Contains the slideout component template               |
+| App.vue              | Contains the view holder for the developer menu widget |
+| main.js              | Standard vue file containing core render functions     |
 
-### Frontend Code Snippet
+### Developer Control Component
 
-```html
+```vue
+<template>
+  <div class="sidenav" v-if="menuToggled === true" :class="[ menuToggled === true ? 'is-active' : '']">
+    <a href="javascript:void(0)" class="closebtn" @click.prevent="toggleMenu">&times;</a>
+    <a href="#">CSS Debug Mode</a>
+    <a href="#">Documents</a>
+    <a @click="toggleMenu" :class="[ menuToggled === 'developerMenu' ? 'is-large' : 'is-hidden']" aria-label="close">close</a>
+  </div>
+</template>
 
+<script>
+export default {
+  name: "DeveloperControler",
+  props: ["menuToggled"],
+
+  methods: {
+    toggleMenu() {
+      this.$emit("toggleMenu");
+
+      return;
+    }
+  }
+};
+</script>
 ```
 
-## Javascript Overview
+### Props
 
-The javascript located in *scripts/main.js* is what controls the inner workings of the frontend application. 
+| Prop Name   | Use                                                                            |
+| ----------- | ------------------------------------------------------------------------------ |
+| menuToggled | Computed property that is used to determine the truthyness of the toggled menu |
 
-### Variables
+### Methods
 
-| Variable   | Use                                |
-| -------- | ------------------------------------- |
-| fakeFetchedData | Simulate web scraping of airport codes or information |
+| Method Name | Use                                                      |
+| ----------- | -------------------------------------------------------- |
+| toggleMenu  | Event bus method used to communicate with App.vue parent |
 
+### App.vue
 
-### Main Frontend Functions
+### Developer Control Component
 
-| Function   | Arguments                              | Use                                |
-| -------- | ------------------------------------- | ------------------------------------- |
-| autocomplete | user input, autocomplete array  | handles autocompletion functionality |
+```vue
+<template>
+  <div id="app">
+    <dev-menu :menuToggled="menuToggled" @toggleMenu="toggleMenu" />
+    <button @click="toggleMenu">Dev Menu</button>
+  </div>
+</template>
 
-
-### Isolated Code Snippets and tests
-
-```js
-
+<script>
+import DeveloperControl from "@/components/DeveloperControl.vue";
+export default {
+  name: "app",
+  data() {
+    return {
+      activeMenu: false
+    };
+  },
+  components: {
+    "dev-menu": DeveloperControl
+  },
+  methods: {
+    toggleMenu() {
+      this.activeMenu = !this.activeMenu;
+      return;
+    }
+  },
+  computed: {
+    menuToggled() {
+      return this.activeMenu;
+    }
+  }
+};
+</script>
 ```
+
+### Computed Properties
+
+| Name        | Use                                                                            |
+| ----------- | ------------------------------------------------------------------------------ |
+| menuToggled | Computed property that is used to determine the truthyness of the toggled menu |
+
+### Methods
+
+| Method Name | Use                                                                          |
+| ----------- | ---------------------------------------------------------------------------- |
+| toggleMenu  | Method property that is used to determine the truthyness of the toggled menu |
