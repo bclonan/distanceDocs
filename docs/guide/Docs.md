@@ -19,7 +19,7 @@ The documents package contains the necessary documentation to understand how the
 Go to the project directory in your consol.
 
 ```sh
-cd D:pathtprojectdirectory/timeWidget
+cd D:pathtprojectdirectory/distanceDocs
 ```
 
 Install project dependencies

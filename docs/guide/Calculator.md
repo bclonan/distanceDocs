@@ -20,6 +20,8 @@ public/
 │   ├── style.css
 │   └── debug.css
 ├── scripts/
+│   ├── tests/
+│   │    └── main.tests.js
 │   ├── main.js
 │   ├── dev-menu.js
 │   ├── dev-menu.js.map
@@ -35,6 +37,7 @@ public/
 | styleDebug.html | holds main application with css debug mode activated |
 | main.js         | holds main application's javascript                  |
 | dev-menu.js     | holds compiled web component for hidden dev menu     |
+| main.tests.js   | holds mockup unit tests vanilla js                   |
 
 ## How to use
 
@@ -91,36 +94,38 @@ The html located in _index.html_ is what defines the structure for the frontend 
 ### Frontend Code Snippet
 
 ```html
-<section class="hero">
-  <div class="hero-inner">
-    <div id="devHolder" class="hideMenu">
-      Developer Menu
-      <dev-menu></dev-menu>
-    </div>
-    <h1>Distance Travel Calculator</h1>
-    <h2>Choose your Airports and find out the distance</h2>
-    <form class="form-inline btn" autocomplete="off" name="distanceForm">
-      <p id="feedBack">
-      </p>
-      <label for="from_airport">From:</label>
-      <div class="dropdown">
-        <div class="autocomplete dropdown">
-          <input id="from_airport" type="text" name="from_airport" placeholder="Airport Code"
-            class="selectInput airport_input">
-        </div>
+   <section class="hero">
+      <div class="hero-inner">
+         <div id="devHolder" class="hideMenu">
+            Developer Menu
+            <dev-menu></dev-menu>
+         </div>
+         <h1>Distance Travel Calculator</h1>
+         <h2>Choose your Airports and find out the distance</h2>
+
+         <form class="form-inline btn" autocomplete="off" name="distanceForm">
+            <p id="feedBack">
+            </p>
+            <label for="from_airport">From:</label>
+            <div class="dropdown">
+               <div class="autocomplete dropdown">
+                  <input id="from_airport" type="text" name="from_airport" placeholder="Airport Code"
+                     class="selectInput airport_input">
+               </div>
+            </div>
+            <label for="to_airport">To:</label>
+            <div class="dropdown">
+               <div class="autocomplete dropdown">
+                  <input id="to_airport" type="text" name="to_airport" placeholder="Airport Code"
+                     class="selectInput airport_input">
+               </div>
+            </div>
+            <p id="distance">
+            </p>
+         </form>
+
       </div>
-      <label for="to_airport">To:</label>
-      <div class="dropdown">
-        <div class="autocomplete dropdown">
-          <input id="to_airport" type="text" name="to_airport" placeholder="Airport Code"
-            class="selectInput airport_input">
-        </div>
-      </div>
-      <p id="distance">
-      </p>
-    </form>
-  </div>
-</section>
+   </section>
 ```
 
 ## Javascript Overview
@@ -145,15 +150,109 @@ The javascript located in _scripts/main.js_ is what controls the inner workings 
 
 ### Main Frontend Functions
 
-| Function       | Arguments                                        | Use                                              |
-| -------------- | ------------------------------------------------ | ------------------------------------------------ |
-| autocomplete   | user input, autocomplete array                   | handles autocompletion functionality             |
-| validateForm   | none                                             | validates user form input                        |
-| travelListener | Departure airport code, Destination airport code | Calculates distance between airports and appends |
-| feedBack       | Message to attach to input feedback              | Inform user throughout process                   |
-| devToggle      | Itself                                           | Listens for correct key sequences                |
+| Function           | Arguments                                        | Use                                                  |
+| ------------------ | ------------------------------------------------ | ---------------------------------------------------- |
+| autocomplete       | user input, autocomplete array                   | handles autocompletion functionality                 |
+| validateForm       | none                                             | validates user form input                            |
+| travelListener     | Departure airport code, Destination airport code | Calculates distance between airports and appends     |
+| feedBack           | Message to attach to input feedback              | Inform user throughout process                       |
+| devToggle          | Itself                                           | Listens for correct key sequences                    |
+| closeAllLists      | Clicked on element                               | Removes all other active lists from DOM              |
+| addActive          | Current Active List                              | Adds active class to current list                    |
+| removeActive       | Current Active List                              | Removes active class                                 |
+| invokeAutocomplete | Target DOM Elements                              | Invokes autocomplete function on target DOM Elements |
 
 ### Isolated Code Snippets and tests
 
+**main.tests.js**
+
 ```js
+/* Define testing functions*/
+function describe(text, fn) {
+  console.log("FUNCTION", text);
+  fn();
+}
+
+function it(text, fn) {
+  console.log("DESCRIPTION", text);
+  fn();
+}
+
+function expect(arg) {
+  return {
+    value: arg,
+    toBe(arg) {
+      if (arg === this.value) {
+        console.log("TEST PASSED!");
+      } else {
+        console.log("TEST FAILED");
+      }
+    }
+  };
+}
+
+/*Run Tests*/
+
+//Function : completeChecker
+
+function completeChecker(arrayItem, val) {
+  if (arrayItem.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+    let autocompleteItem = document.createElement("DIV");
+    autocompleteItem.innerHTML =
+      "<strong>" + arrayItem.substr(0, val.length) + "</strong>";
+    autocompleteItem.innerHTML += arrayItem.substr(val.length);
+    autocompleteItem.innerHTML +=
+      "<input type='hidden' value='" + arrayItem + "'>";
+    autocompleteItem.addEventListener("click", function(e) {
+      inp.value = this.getElementsByTagName("input")[0].value;
+      // closeAllLists();
+      // validateForm();
+    });
+    return autocompleteItem;
+  }
+}
+//Test : completeChecker
+
+describe("completeCheker", () => {
+  it("returns a dom node if arguments match", () => {
+    const item = "FAX";
+    const value = "FA";
+    const Actual = completeChecker(item, value);
+    expect(Actual.nodeName).toBe("DIV");
+  });
+  it("returns undefined if arguments don't match", () => {
+    const item = "abC";
+    const value = "FA";
+    const Actual = completeChecker(item, value);
+    expect(Actual).toBe(undefined);
+  });
+});
+
+//Function : invokeAutocomplete
+
+function invokeAutocomplete(targetElements) {
+  if (targetElements) {
+    targetElements.forEach(function(input) {
+      // autocomplete(input, intentChecked);
+    });
+    return targetElements;
+  }
+}
+//Test : invokeAutocomplete
+
+describe("invokeAutocomplete", () => {
+  it("returns array if elements exist", () => {
+    var elements = ["element"];
+    const Actual = invokeAutocomplete(elements);
+    expect(Actual.length).toBe(1);
+  });
+  it("returns undefined if elements don't exist on page", () => {
+    var elements;
+    const Actual = invokeAutocomplete(elements);
+    expect(Actual).toBe(undefined);
+  });
+});
 ```
+
+<iframe height='265' scrolling='no' title='distanceTests' src='//codepen.io/possibly1/embed/preview/LXJoWE/?height=265&theme-id=0&default-tab=js,result' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='https://codepen.io/possibly1/pen/LXJoWE/'>distanceTests</a> by brad (<a href='https://codepen.io/possibly1'>@possibly1</a>) on <a href='https://codepen.io'>CodePen</a>.
+</iframe>

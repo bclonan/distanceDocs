@@ -23,7 +23,7 @@ The developer package is a simple slideout menu created with vue js.
 Go to the project directory in your consol.
 
 ```sh
-cd D:pathtprojectdirectory/timeWidget
+cd D:pathtprojectdirectory/distanceWidget
 ```
 
 Install project dependencies
@@ -95,26 +95,81 @@ timeWidget/
 <template>
   <div class="sidenav" v-if="menuToggled === true" :class="[ menuToggled === true ? 'is-active' : '']">
     <a href="javascript:void(0)" class="closebtn" @click.prevent="toggleMenu">&times;</a>
-    <a href="#">CSS Debug Mode</a>
-    <a href="#">Documents</a>
-    <a @click="toggleMenu" :class="[ menuToggled === 'developerMenu' ? 'is-large' : 'is-hidden']" aria-label="close">close</a>
+    <h1 class="titleBlock">Destinations</h1>
+    <a v-for="item in NavItems" :key="item.id" :href="item.link">{{item.destination}}</a>
   </div>
 </template>
 
 <script>
 export default {
   name: "DeveloperControler",
-  props: ["menuToggled"],
-
+  props: ["menuToggled", "NavItems"],
   methods: {
     toggleMenu() {
       this.$emit("toggleMenu");
-
-      return;
     }
   }
 };
 </script>
+
+<style scoped>
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: blueviolet;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 1.2rem;
+  color: #f1f1f1;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #000000;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+#main {
+  transition: margin-left 0.5s;
+  padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+
+.is-active {
+  width: 250px;
+}
+.titleBlock {
+  text-align: center;
+  text-decoration: underline;
+  color: black;
+}
+</style>
 ```
 
 ### Props
@@ -122,6 +177,7 @@ export default {
 | Prop Name   | Use                                                                            |
 | ----------- | ------------------------------------------------------------------------------ |
 | menuToggled | Computed property that is used to determine the truthyness of the toggled menu |
+| NavItems    | Holds array of navigation items                                                |
 
 ### Methods
 
@@ -136,7 +192,7 @@ export default {
 ```vue
 <template>
   <div id="app">
-    <dev-menu :menuToggled="menuToggled" @toggleMenu="toggleMenu" />
+    <dev-menu @toggleMenu="toggleMenu" :menuToggled="menuToggled" :NavItems="NavItems" />
     <button @click="toggleMenu">Dev Menu</button>
   </div>
 </template>
@@ -147,7 +203,26 @@ export default {
   name: "app",
   data() {
     return {
-      activeMenu: false
+      activeMenu: false,
+      NavItems: [
+        {
+          link: "https://elegant-jackson-350189.netlify.com/",
+          destination: "Developer Documents"
+        },
+        {
+          link: "https://github.com/possibly1/DistanceCalc",
+          destination: "Calculator Repository"
+        },
+        {
+          link: "https://github.com/possibly1/distanceDocs",
+          destination: "Docs Repository"
+        },
+
+        {
+          link: "https://github.com/possibly1/distanceWidget",
+          destination: "Widget Repository"
+        }
+      ]
     };
   },
   components: {
@@ -156,7 +231,6 @@ export default {
   methods: {
     toggleMenu() {
       this.activeMenu = !this.activeMenu;
-      return;
     }
   },
   computed: {
@@ -166,6 +240,12 @@ export default {
   }
 };
 </script>
+
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
+</style>
 ```
 
 ### Computed Properties
